@@ -4,8 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js --exec babel-node --presets env",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "npm run clean && npm run build && npm run serve",
+    "clean": "rm -rf dist && mkdir dist",
+    "build": "babel . -s -D -d dist --presets env --ignore node_modules",
+    "serve": "node dist/app.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +24,6 @@
   "dependencies": {
     "express": "^4.17.1",
     "husky": "^4.2.5",
-    "nodemon": "^2.0.3",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1"
   },
@@ -28,5 +31,10 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^2.0.3"
   }
 }
